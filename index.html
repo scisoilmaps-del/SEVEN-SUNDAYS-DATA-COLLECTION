@@ -2121,6 +2121,21 @@
       .crop-year-switch button.active{background:#234b38;border-color:#234b38;color:#fff}
       .crop-year-switch button:not(.active){background:#fff;color:#111}
       @media(max-width:720px){.plan-mode-grid{grid-template-columns:1fr}.plan-mode-card{min-height:auto}}
+    
+      /* Seven Sundays logo on the tool landing-page hero */
+      .seven-sundays-home-hero { padding: 24px 26px; }
+      .seven-sundays-hero-logo {
+        display: block;
+        width: min(100%, 330px);
+        height: auto;
+        margin: 0 0 16px;
+        object-fit: contain;
+      }
+      @media (max-width: 600px) {
+        .seven-sundays-home-hero { padding: 18px; }
+        .seven-sundays-hero-logo { width: min(100%, 265px); }
+      }
+
     </style>
   </head>
   <body>
@@ -4742,7 +4757,7 @@
           alert("White paper download could not be created in this browser.");
         }
       }
-      function home() { return `<main class="page"><div class="card" style="margin-top:28px"><h1>Seven Sundays | Grower Data Collection</h1><p>Capture this year's baseline practices and next year's regenerative transition plan. Farm Details, KML mapping, Crop Planner and Tillage use the original SCI builder's workflow and calculation logic.</p><p class="help">The program is designed around Level 1 entry and progress toward Level 2 by Year 3. Supporting IPM and nutrient data may be supplied through existing farmer records.</p><button type="button" class="btn" data-go-step="1">Get Started →</button></div>${resumeControls()}<div class="card"><h3>Collection steps</h3><p>Farm Details & KML → Crop Planner → Tillage → Biodiversity → Sunflower → Inputs & Farmer Records → Green Acres Oats → Export.</p></div></main>`; }
+      function home() { return `<main class="page"><div class="card seven-sundays-home-hero" style="margin-top:28px"><img class="seven-sundays-hero-logo" src="seven-sundays-logo.png" alt="Seven Sundays" /><h1>Seven Sundays | Grower Data Collection</h1><p>Capture this year's baseline practices and next year's regenerative transition plan. Farm Details, KML mapping, Crop Planner and Tillage use the original SCI builder's workflow and calculation logic.</p><p class="help">The program is designed around Level 1 entry and progress toward Level 2 by Year 3. Supporting IPM and nutrient data may be supplied through existing farmer records.</p><button type="button" class="btn" data-go-step="1">Get Started →</button></div>${resumeControls()}<div class="card"><h3>Collection steps</h3><p>Farm Details & KML → Crop Planner → Tillage → Biodiversity → Sunflower → Inputs & Farmer Records → Green Acres Oats → Export.</p></div></main>`; }
       function jsq(v) {
         return String(v ?? "")
           .replace(/\\/g, "\\\\")
@@ -11814,7 +11829,7 @@ Thank you,`;
         }, window.location.origin === 'null' ? '*' : window.location.origin);
       });
       function greenAcresOats() {
-        return `${stepBar()}<main class="page"><div class="card"><h2>Green Acres Oats • Survey</h2><p>16-question replacement survey; export the oats-specific Excel workbook from within this tab. The original survey wording was not included in the supplied project.</p><iframe title="Green Acres oats questionnaire" src="seven-sundays-forms.html?view=oats" style="width:100%;min-height:1150px;height:80vh;border:1px solid #dce5df;border-radius:10px;background:#fff"></iframe></div>${nav(16,15)}</main>`;
+        return `${stepBar()}<main class="page"><div class="card"><h2>Green Acres Oats • Survey</h2><p>2025 AMP Grant Data Requirements — all 16 questions match the supplied survey PDF. Select KML fields and export the oats-specific Excel workbook from this tab.</p><iframe title="Green Acres oats questionnaire" src="seven-sundays-forms.html?view=oats" style="width:100%;min-height:1150px;height:80vh;border:1px solid #dce5df;border-radius:10px;background:#fff"></iframe></div>${nav(16,15)}</main>`;
       }
 
       // Seven Sundays-specific collection: bound to the SAME saved state and Complete ZIP.
