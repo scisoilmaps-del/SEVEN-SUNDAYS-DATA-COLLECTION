@@ -11796,8 +11796,25 @@ Thank you,`;
       function sunflowerCsvRows() {
         return [{...exportMeta(),...sunflowerData()}];
       }
+      // Provide field names from the existing Farm Details KML to the oats survey iframe.
+      // No additional KML upload is required and no other farm data is modified.
+      window.addEventListener('message', function(event) {
+        if (event.origin !== window.location.origin && window.location.origin !== 'null') return;
+        const frame = document.querySelector('iframe[title="Green Acres oats questionnaire"]');
+        if (!frame || event.source !== frame.contentWindow || !event.data || event.data.type !== 'seven-oats-request-fields') return;
+        const oatBoundaryIds = new Set((state.crops || [])
+          .filter(c => /\boats?\b/i.test([c.crop, c.cropName, c.name, c.type, c.cropType].filter(Boolean).join(' ')))
+          .flatMap(c => c.boundaryIds || []).map(String));
+        frame.contentWindow.postMessage({
+          type: 'seven-oats-kml-fields',
+          filename: state.farm && state.farm.kmlFileName || '',
+          fields: (state.kmlBoundaries || []).map(b => ({
+            id: String(b.id), name: String(b.name || b.id), oat: oatBoundaryIds.has(String(b.id))
+          }))
+        }, window.location.origin === 'null' ? '*' : window.location.origin);
+      });
       function greenAcresOats() {
-        return `${stepBar()}<main class="page"><div class="card"><h2>Green Acres Oats • Original survey</h2><p>16 original survey questions; export the oats-specific Excel workbook from within this tab.</p><iframe title="Green Acres oats questionnaire" src="seven-sundays-forms.html?view=oats" style="width:100%;min-height:1150px;height:80vh;border:1px solid #dce5df;border-radius:10px;background:#fff"></iframe></div>${nav(16,15)}</main>`;
+        return `${stepBar()}<main class="page"><div class="card"><h2>Green Acres Oats • Survey</h2><p>16-question replacement survey; export the oats-specific Excel workbook from within this tab. The original survey wording was not included in the supplied project.</p><iframe title="Green Acres oats questionnaire" src="seven-sundays-forms.html?view=oats" style="width:100%;min-height:1150px;height:80vh;border:1px solid #dce5df;border-radius:10px;background:#fff"></iframe></div>${nav(16,15)}</main>`;
       }
 
       // Seven Sundays-specific collection: bound to the SAME saved state and Complete ZIP.
